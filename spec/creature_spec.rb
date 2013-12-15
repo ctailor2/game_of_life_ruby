@@ -22,4 +22,12 @@ describe Creature do
 			end
 		end
 	end
+
+	describe "#location" do
+		let(:creature) { Creature.new(2, 5) }
+
+		it "returns its location as a pair of coordinates" do
+			expect(creature.location).to eq([2, 5])
+		end
+	end
 end
