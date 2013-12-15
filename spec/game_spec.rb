@@ -38,5 +38,11 @@ describe Game do
 		end
 	end
 
-	
+	describe "#tick_count" do
+		let(:game) { Game.new(5) }
+
+		it "starts at 0" do
+			expect(game.tick_count).to eq(0)
+		end
+	end
 end

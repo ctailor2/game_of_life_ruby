@@ -1,8 +1,9 @@
 class Game
-	attr_reader :creatures
+	attr_reader :creatures, :tick_count
 
 	def initialize(num_creatures)
 		@creatures = []
+		@tick_count = 0
 
 		starting_locations(num_creatures).each do |location|
 			@creatures << Creature.new(*location, true)
