@@ -30,4 +30,12 @@ describe Creature do
 			expect(creature.location).to eq([2, 5])
 		end
 	end
+
+	describe "#live_neighbors" do
+		let(:creature) { Creature.new(2, 5) }
+
+		it "starts at zero" do
+			expect(creature.live_neighbors).to eq(0)
+		end
+	end
 end
