@@ -42,4 +42,22 @@ describe Creature do
 			expect(creature.neighborhood).to include([1, 4], [1, 5], [1, 6], [2, 4], [2, 6], [3, 4], [3, 5], [3, 6])
 		end
 	end
+
+	describe "#zap!" do
+		context "on live creatures" do
+			let(:creature) { Creature.new(2, 5, true) }
+
+			it "toggles the creatures life" do
+				expect{creature.zap!}.to change{creature.alive}.from(true).to(false)
+			end
+		end
+
+		context "on dead creatures" do
+			let(:creature) { Creature.new(2, 5, false) }
+
+			it "toggles the creatures life" do
+				expect{creature.zap!}.to change{creature.alive}.from(false).to(true)
+			end
+		end
+	end
 end

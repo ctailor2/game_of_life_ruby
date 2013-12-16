@@ -24,4 +24,8 @@ class Creature
 		locations.delete(location)
 		locations
 	end
+
+	def zap!
+		self.alive = !alive
+	end
 end
