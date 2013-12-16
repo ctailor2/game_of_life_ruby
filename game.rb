@@ -88,7 +88,7 @@ class Game
 	def zap_select_creatures
 		select_creatures = select_live_to_die + select_dead_to_live
 		select_creatures.each do |creature|
-			creature.alive = !creature.alive
+			creature.zap!
 		end
 		self.creatures += select_creatures
 	end
