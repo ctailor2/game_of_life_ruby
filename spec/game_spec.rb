@@ -7,11 +7,13 @@ describe Game do
 	let(:live_c) { Creature.new(2, 2, true) }
 	let(:live_d) { Creature.new(3, 1, true) }
 	let(:live_e) { Creature.new(3, 0, true) }
+	let(:live_f) { Creature.new(4, 2, true) }
 	let(:dead_a) { Creature.new(1, 0) }
 	let(:dead_b) { Creature.new(3, 3) }
 	let(:dead_c) { Creature.new(1, 2) }
 	let(:dead_d) { Creature.new(0, 0) }
 	let(:dead_e) { Creature.new(1, 4) }
+	let(:dead_f) { Creature.new(4, 1) }
 
 	describe "#creatures" do
 		it "is a collection" do
