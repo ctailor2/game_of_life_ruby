@@ -4,7 +4,6 @@ describe Game do
 	let(:game) { Game.new(5) }	
 
 	describe "#creatures" do
-
 		it "is a collection" do
 			expect(game.creatures).to be_a(Array)
 		end
@@ -19,7 +18,6 @@ describe Game do
 	end
 
 	describe "#starting_locations" do
-
 		it "returns the correct number of locations" do
 			expect(game.starting_locations(10).length).to eq(10)
 		end
@@ -83,7 +81,7 @@ describe Game do
 
 	describe "#increment_counter" do
 		it "increments tick_count" do
-			expect{ game.tick }.to change{ game.tick_count }.from(0).to(1)			
+			expect{ game.tick }.to change{ game.tick_count }.by(1)		
 		end
 	end
 end
