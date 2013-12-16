@@ -37,10 +37,10 @@ class Game
 		creatures.each do |creature|
 			lots += creature.neighborhood
 		end
-		lots.reject do |location|
+		lots.reject! do |location|
 			creature_locations(true).include?(location)
 		end
-		lots
+		lots.uniq
 	end
 
 	def build_neighborhood(locations)

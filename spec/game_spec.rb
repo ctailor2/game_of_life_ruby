@@ -56,23 +56,48 @@ describe Game do
 		before { game.creatures.clear }
 
 		context "with 1 live creature" do
-			it "returns the correct set of locations" do
+			it "returns the correct number of vacant locations" do
+				game.creatures.push(live_a)
+				expect(game.vacant_lots.length).to eq(8)
+			end
+
+			it "returns the correct set of vacant locations" do
 				game.creatures.push(live_a)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2])
 			end
 		end
 
 		context "with 2 adjacent live creatures" do
-			it "returns the correct set of locations" do
+			it "returns the correct number of vacant locations" do
+				game.creatures.push(live_a, live_b)
+				expect(game.vacant_lots.length).to eq(10)
+			end
+
+			it "returns the correct set of vacant locations" do
 				game.creatures.push(live_a, live_b)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])
+			end
+
+			it "does not return occupied locations" do
+				game.creatures.push(live_a, live_b)
+				expect(game.vacant_lots).not_to include([1, 1], [2, 1])
 			end
 		end
 
 		context "with 2 diagonally adjacent live creatures" do
-			it "returns the correct set of locations" do
+			it "returns the correct number of vacant locations" do
+				game.creatures.push(live_a, live_c)
+				expect(game.vacant_lots.length).to eq(12)
+			end
+
+			it "returns the correct set of vacant locations" do
 				game.creatures.push(live_a, live_c)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
+			end
+
+			it "does not return occupied locations" do
+				game.creatures.push(live_a, live_c)
+				expect(game.vacant_lots).not_to include([1, 1], [2, 2])
 			end
 		end
 	end
