@@ -39,8 +39,7 @@ describe Creature do
 		let(:creature) { Creature.new(2, 5) }
 
 		it "returns its 8 neighboring locations" do
-			locations = [[1, 4], [1, 5], [1, 6], [2, 4], [2, 6], [3, 4], [3, 5], [3, 6]]
-			expect(creature.neighborhood).to eq(locations)
+			expect(creature.neighborhood).to include([1, 4], [1, 5], [1, 6], [2, 4], [2, 6], [3, 4], [3, 5], [3, 6])
 		end
 	end
 end
