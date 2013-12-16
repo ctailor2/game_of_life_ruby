@@ -2,13 +2,16 @@ require_relative '../game'
 
 describe Game do
 	let(:game) { Game.new(5) }
-	let(:creature_a) { Creature.new(1, 1, true) }
-	let(:creature_b) { Creature.new(2, 1, true) }
-	let(:creature_c) { Creature.new(2, 2, true) }
-	let(:creature_d) { Creature.new(1, 0) }
-	let(:creature_e) { Creature.new(3, 3) }
-	let(:creature_f) { Creature.new(1, 2) }
-	let(:creature_g) { Creature.new(0, 0) }
+	let(:live_a) { Creature.new(1, 1, true) }
+	let(:live_b) { Creature.new(2, 1, true) }
+	let(:live_c) { Creature.new(2, 2, true) }
+	let(:live_d) { Creature.new(3, 1, true) }
+	let(:live_e) { Creature.new(3, 0, true) }
+	let(:dead_a) { Creature.new(1, 0) }
+	let(:dead_b) { Creature.new(3, 3) }
+	let(:dead_c) { Creature.new(1, 2) }
+	let(:dead_d) { Creature.new(0, 0) }
+	let(:dead_e) { Creature.new(1, 4) }
 
 	describe "#creatures" do
 		it "is a collection" do
@@ -52,21 +55,21 @@ describe Game do
 
 		context "with 1 live creature" do
 			it "returns the correct set of locations" do
-				game.creatures.push(creature_a)
+				game.creatures.push(live_a)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2])
 			end
 		end
 
 		context "with 2 adjacent live creatures" do
 			it "returns the correct set of locations" do
-				game.creatures.push(creature_a, creature_b)
+				game.creatures.push(live_a, live_b)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])
 			end
 		end
 
 		context "with 2 diagonally adjacent live creatures" do
 			it "returns the correct set of locations" do
-				game.creatures.push(creature_a, creature_c)
+				game.creatures.push(live_a, live_c)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
 			end
 		end
@@ -90,30 +93,30 @@ describe Game do
 	describe "#count_neighbors" do
 		before do
 			game.creatures.clear
-			game.creatures.push(creature_a, creature_b, creature_c, creature_d, creature_e, creature_f, creature_g)
+			game.creatures.push(live_a, live_b, live_c, dead_a, dead_b, dead_c, dead_d)
 		end
 
-		context "for creature_b" do
+		context "for live_b" do
 			it "returns the correct number of live neighbors" do
-				expect(game.count_neighbors(creature_b)).to eq(2)
+				expect(game.count_neighbors(live_b)).to eq(2)
 			end
 		end
 
-		context "for creature_d" do
+		context "for dead_a" do
 			it "returns the correct number of live neighbors" do
-				expect(game.count_neighbors(creature_d)).to eq(2)
+				expect(game.count_neighbors(dead_a)).to eq(2)
 			end
 		end
 
-		context "for creature_f" do
+		context "for dead_c" do
 			it "returns the correct number of live neighbors" do
-				expect(game.count_neighbors(creature_f)).to eq(3)
+				expect(game.count_neighbors(dead_c)).to eq(3)
 			end
 		end
 
-		context "for creature_g" do
+		context "for dead_d" do
 			it "returns the correct number of live neighbors" do
-				expect(game.count_neighbors(creature_g)).to eq(1)
+				expect(game.count_neighbors(dead_d)).to eq(1)
 			end
 		end
 	end
@@ -121,7 +124,7 @@ describe Game do
 	describe "#set_neighbor_counts" do
 		before do
 			game.creatures.clear
-			game.creatures.push(creature_a, creature_b, creature_c, creature_d)
+			game.creatures.push(live_a, live_b, live_c, dead_a)
 		end
 
 		it "sets the live_neighbors attribute for all creatures" do
