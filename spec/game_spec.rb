@@ -42,20 +42,6 @@ describe Game do
 		end
 	end
 
-	describe "#tick" do
-
-		context "with 1 live creature" do
-			it "populates vacancies with dead creatures" do
-				game.creatures.clear
-				creature = Creature.new(1, 1, true)
-				game.creatures << creature
-				game.tick
-				game.creatures.delete(creature)
-				expect(game.creatures.all?{ |creature| creature.alive == false }).to be_true
-			end
-		end
-	end
-
 	describe "#vacant_lots" do
 		let(:creature_a) { Creature.new(1, 1, true) }
 		let(:creature_b) { Creature.new(2, 1, true) }
@@ -83,6 +69,15 @@ describe Game do
 				game.creatures << creature_c
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
 			end
+		end
+	end
+
+	describe "#build_neighborhood" do
+		before { game.creatures.clear }
+
+		it "creates dead creatures at the specified locations" do
+			game.build_neighborhood([[0, 0], [1, 0], [2, 0]])
+			expect(game.creature_locations(false)).to include([0, 0], [1, 0], [2, 0])
 		end
 	end
 
