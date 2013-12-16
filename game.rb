@@ -68,7 +68,7 @@ class Game
 		end
 	end
 
-	def cycle_live_creatures
+	def select_live_to_die
 		rejects = []
 		live_creatures = creature_objects(true)
 		rejects += live_creatures.select{ |creature| creature.live_neighbors < 2 }
@@ -77,15 +77,11 @@ class Game
 		rejects
 	end
 
-	def cycle_dead_creatures
+	def select_dead_to_live
 		rejects = []
 		dead_creatures = creature_objects(false)
 		rejects += dead_creatures.select{ |creature| creature.live_neighbors == 3 }
 		self.creatures -= rejects
 		rejects
-	end
-
-	def cycle_creatures
-		cycle_live_creatures + cycle_dead_creatures
 	end
 end
