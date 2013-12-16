@@ -39,7 +39,7 @@ class Game
 			lots += creature.neighborhood
 		end
 		lots.reject do |location|
-			live_creature_locations.include?(location)
+			creature_locations(true).include?(location)
 		end
 		lots
 	end
@@ -50,7 +50,7 @@ class Game
 		end
 	end
 
-	def live_creature_locations
-		creatures.select{ |creature| creature.alive }.map{ |creature| creature.location }
+	def creature_locations(alive)
+		creatures.select{ |creature| creature.alive == alive }.map{ |creature| creature.location }
 	end
 end
