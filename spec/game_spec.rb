@@ -37,7 +37,6 @@ describe Game do
 	end
 
 	describe "#tick_count" do
-
 		it "starts at 0" do
 			expect(game.tick_count).to eq(0)
 		end
@@ -46,16 +45,6 @@ describe Game do
 	describe "#tick" do
 
 		context "with 1 live creature" do
-			it "populates the correct surrounding spots with creatures" do
-				game.creatures.clear
-				creature = Creature.new(1, 1, true)
-				game.creatures << creature
-				game.tick
-				game.creatures.delete(creature)
-				filled_locations = game.creatures.map{ |creature| creature.location }
-				expect(filled_locations).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2])
-			end
-
 			it "populates vacancies with dead creatures" do
 				game.creatures.clear
 				creature = Creature.new(1, 1, true)
@@ -65,34 +54,36 @@ describe Game do
 				expect(game.creatures.all?{ |creature| creature.alive == false }).to be_true
 			end
 		end
+	end
+
+	describe "#vacant_lots" do
+		let(:creature_a) { Creature.new(1, 1, true) }
+		let(:creature_b) { Creature.new(2, 1, true) }
+		let(:creature_c) { Creature.new(2, 2, true) }
+
+		context "with 1 live creature" do
+			it "returns the correct set of locations" do
+				game.creatures.clear
+				game.creatures << creature_a
+				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2])
+			end
+		end
 
 		context "with 2 adjacent live creatures" do
 			it "populates the correct surrounding spots with dead creatures" do
 				game.creatures.clear
-				creature_a = Creature.new(1, 1, true)
-				creature_b = Creature.new(2, 1, true)
 				game.creatures << creature_a
 				game.creatures << creature_b
-				game.tick
-				game.creatures.delete(creature_a)
-				game.creatures.delete(creature_b)
-				filled_locations = game.creatures.map{ |creature| creature.location }
-				expect(filled_locations).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])				
+				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])
 			end
 		end
 
 		context "with 2 diagonally adjacent live creatures" do
 			it "populates the correct surrounding spots with dead creatures" do
 				game.creatures.clear
-				creature_a = Creature.new(1, 1, true)
-				creature_b = Creature.new(2, 2, true)
 				game.creatures << creature_a
-				game.creatures << creature_b
-				game.tick
-				game.creatures.delete(creature_a)
-				game.creatures.delete(creature_b)
-				filled_locations = game.creatures.map{ |creature| creature.location }
-				expect(filled_locations).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])				
+				game.creatures << creature_c
+				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
 			end
 		end
 	end
