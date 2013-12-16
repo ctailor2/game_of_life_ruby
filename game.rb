@@ -26,7 +26,7 @@ class Game
 
 	def tick
 		increment_counter
-		build_neighborhood
+		build_neighborhood(vacant_lots)
 	end
 
 	def increment_counter
@@ -44,8 +44,8 @@ class Game
 		lots
 	end
 
-	def build_neighborhood
-		vacant_lots.each do |location|
+	def build_neighborhood(locations)
+		locations.each do |location|
 			creatures << Creature.new(*location)
 		end
 	end
