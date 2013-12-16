@@ -1,6 +1,6 @@
 class Creature
-	attr_reader :alive, :location, :x, :y
-	attr_accessor :live_neighbors
+	attr_reader :location, :x, :y
+	attr_accessor :live_neighbors, :alive
 
 	def initialize(x, y, alive = false)
 		@x = x

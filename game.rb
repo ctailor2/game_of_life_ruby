@@ -84,4 +84,12 @@ class Game
 		self.creatures -= rejects
 		rejects
 	end
+
+	def zap_select_creatures
+		select_creatures = select_live_to_die + select_dead_to_live
+		select_creatures.each do |creature|
+			creature.alive = !creature.alive
+		end
+		self.creatures += select_creatures
+	end
 end

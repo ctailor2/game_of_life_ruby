@@ -183,4 +183,33 @@ describe Game do
 			end
 		end
 	end
+
+	describe "#zap_select_creatures" do
+		before do
+			game.creatures.clear
+			game.creatures.push(live_a, live_b, live_c, live_d, live_e, live_f, dead_a, dead_b, dead_c, dead_d, dead_e, dead_f)
+			game.set_neighbor_counts			
+		end
+
+		context "on live creatures" do
+			it "kills them" do
+				game.zap_select_creatures
+				expect(live_b.alive).to be_false
+			end
+		end
+
+		context "on dead creatures" do
+			it "brings them to life" do
+				game.zap_select_creatures
+				expect(dead_c.alive).to be_true
+			end
+		end
+
+		context "when completed" do
+			it "adds the zapped creatures back to the collection" do
+				game.zap_select_creatures
+				expect(game.creatures).to include(live_b, live_d, dead_c, dead_f)
+			end
+		end
+	end
 end
