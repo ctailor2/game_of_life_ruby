@@ -134,4 +134,53 @@ describe Game do
 			expect(game.creatures.all? { |creature| creature.live_neighbors == 2 }).to be_true
 		end
 	end
+
+	describe "#cycle_live_creatures" do
+		before do
+			game.creatures.clear
+			game.creatures.push(live_a, live_b, live_c, live_d, live_e, live_f, dead_a, dead_b, dead_c, dead_d, dead_e, dead_f)
+			game.set_neighbor_counts
+		end
+
+		context "for creatures with less than 2 live neighbors" do
+			it "returns these creatures" do
+				expect(game.cycle_live_creatures).to include(live_f)
+			end
+
+			it "removes these creatures from the collection" do
+				game.cycle_live_creatures
+				expect(game.creatures).not_to include(live_f)
+			end
+		end
+
+		context "for creatures with greater than 3 live neighbors" do
+			it "returns these creatures" do
+				expect(game.cycle_live_creatures).to include(live_b, live_d)
+			end
+
+			it "removes these creatures from the collection" do
+				game.cycle_live_creatures
+				expect(game.creatures).not_to include(live_b, live_d)
+			end
+		end
+	end
+
+	describe "#cycle_dead_creatures" do
+		before do
+			game.creatures.clear
+			game.creatures.push(live_a, live_b, live_c, live_d, live_e, live_f, dead_a, dead_b, dead_c, dead_d, dead_e, dead_f)
+			game.set_neighbor_counts
+		end
+
+		context "for creatures with exactly 3 live neighbors" do
+			it "returns these creatures" do
+				expect(game.cycle_dead_creatures).to include(dead_c, dead_f)
+			end
+
+			it "removes these creatures from the collection" do
+				game.cycle_dead_creatures
+				expect(game.creatures).not_to include(dead_c, dead_f)
+			end
+		end
+	end
 end

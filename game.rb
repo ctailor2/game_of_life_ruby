@@ -1,6 +1,5 @@
 class Game
-	attr_reader :creatures
-	attr_accessor :tick_count
+	attr_accessor :tick_count, :creatures
 
 	def initialize(num_creatures)
 		@creatures = []
@@ -63,5 +62,22 @@ class Game
 		creatures.each do |creature|
 			creature.live_neighbors = count_neighbors(creature)
 		end
+	end
+
+	def cycle_live_creatures
+		rejects = []
+		live_creatures = creatures.select{ |creature| creature.alive }
+		rejects += live_creatures.select{ |creature| creature.live_neighbors < 2 }
+		rejects += live_creatures.select{ |creature| creature.live_neighbors > 3 }
+		self.creatures -= rejects
+		rejects
+	end
+
+	def cycle_dead_creatures
+		rejects = []
+		dead_creatures = creatures.select{ |creature| creature.alive == false }
+		rejects += dead_creatures.select{ |creature| creature.live_neighbors == 3 }
+		self.creatures -= rejects
+		rejects
 	end
 end
