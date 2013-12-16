@@ -92,4 +92,8 @@ class Game
 		end
 		self.creatures += select_creatures
 	end
+
+	def clean_up_creatures
+		creatures.select!{ |creature| creature.alive }
+	end
 end

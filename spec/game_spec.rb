@@ -212,4 +212,21 @@ describe Game do
 			end
 		end
 	end
+
+	describe "#clean_up_creatures" do
+		before do
+			game.creatures.clear
+			game.creatures.push(live_a, live_b, live_c, live_d, live_e, live_f, dead_a, dead_b, dead_c, dead_d, dead_e, dead_f)
+		end
+
+		it "removes dead creatures from the collection" do
+			game.clean_up_creatures
+			expect(game.creatures).not_to include(dead_a, dead_b, dead_c, dead_d, dead_e, dead_f)
+		end
+
+		it "keeps live creatures in the collection" do
+			game.clean_up_creatures
+			expect(game.creatures).to include(live_a, live_b, live_c, live_d, live_e, live_f)
+		end
+	end
 end
