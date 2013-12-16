@@ -1,7 +1,14 @@
 require_relative '../game'
 
 describe Game do
-	let(:game) { Game.new(5) }	
+	let(:game) { Game.new(5) }
+	let(:creature_a) { Creature.new(1, 1, true) }
+	let(:creature_b) { Creature.new(2, 1, true) }
+	let(:creature_c) { Creature.new(2, 2, true) }
+	let(:creature_d) { Creature.new(1, 0) }
+	let(:creature_e) { Creature.new(3, 3) }
+	let(:creature_f) { Creature.new(1, 2) }
+	let(:creature_g) { Creature.new(0, 0) }
 
 	describe "#creatures" do
 		it "is a collection" do
@@ -41,30 +48,25 @@ describe Game do
 	end
 
 	describe "#vacant_lots" do
-		let(:creature_a) { Creature.new(1, 1, true) }
-		let(:creature_b) { Creature.new(2, 1, true) }
-		let(:creature_c) { Creature.new(2, 2, true) }
 		before { game.creatures.clear }
 
 		context "with 1 live creature" do
 			it "returns the correct set of locations" do
-				game.creatures << creature_a
+				game.creatures.push(creature_a)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2])
 			end
 		end
 
 		context "with 2 adjacent live creatures" do
 			it "returns the correct set of locations" do
-				game.creatures << creature_a
-				game.creatures << creature_b
+				game.creatures.push(creature_a, creature_b)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])
 			end
 		end
 
 		context "with 2 diagonally adjacent live creatures" do
 			it "returns the correct set of locations" do
-				game.creatures << creature_a
-				game.creatures << creature_c
+				game.creatures.push(creature_a, creature_c)
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
 			end
 		end
@@ -86,13 +88,6 @@ describe Game do
 	end
 
 	describe "#count_neighbors" do
-		let(:creature_a) { Creature.new(1, 1, true) }
-		let(:creature_b) { Creature.new(2, 1, true) }
-		let(:creature_c) { Creature.new(2, 2, true) }
-		let(:creature_d) { Creature.new(1, 0) }
-		let(:creature_e) { Creature.new(3, 3) }
-		let(:creature_f) { Creature.new(1, 2) }
-		let(:creature_g) { Creature.new(0, 0) }
 		before do
 			game.creatures.clear
 			game.creatures.push(creature_a, creature_b, creature_c, creature_d, creature_e, creature_f, creature_g)
