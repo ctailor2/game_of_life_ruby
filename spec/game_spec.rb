@@ -70,7 +70,7 @@ describe Game do
 		end
 
 		context "with 2 adjacent live creatures" do
-			it "populates the correct surrounding spots with dead creatures" do
+			it "returns the correct set of locations" do
 				game.creatures << creature_a
 				game.creatures << creature_b
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [3, 0], [0, 1], [3, 1], [0, 2], [1, 2], [2, 2], [3, 2])
@@ -78,7 +78,7 @@ describe Game do
 		end
 
 		context "with 2 diagonally adjacent live creatures" do
-			it "populates the correct surrounding spots with dead creatures" do
+			it "returns the correct set of locations" do
 				game.creatures << creature_a
 				game.creatures << creature_c
 				expect(game.vacant_lots).to include([0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [3, 1], [0, 2], [1, 2], [3, 2], [1, 3], [2, 3], [3, 3])
