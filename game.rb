@@ -49,8 +49,12 @@ class Game
 		end
 	end
 
+	def creature_objects(alive)
+		creatures.select{ |creature| creature.alive == alive }
+	end
+
 	def creature_locations(alive)
-		creatures.select{ |creature| creature.alive == alive }.map{ |creature| creature.location }
+		creature_objects(alive).map{ |creature| creature.location }
 	end
 
 	def count_neighbors(creature)
@@ -66,7 +70,7 @@ class Game
 
 	def cycle_live_creatures
 		rejects = []
-		live_creatures = creatures.select{ |creature| creature.alive }
+		live_creatures = creature_objects(true)
 		rejects += live_creatures.select{ |creature| creature.live_neighbors < 2 }
 		rejects += live_creatures.select{ |creature| creature.live_neighbors > 3 }
 		self.creatures -= rejects
@@ -75,9 +79,13 @@ class Game
 
 	def cycle_dead_creatures
 		rejects = []
-		dead_creatures = creatures.select{ |creature| creature.alive == false }
+		dead_creatures = creature_objects(false)
 		rejects += dead_creatures.select{ |creature| creature.live_neighbors == 3 }
 		self.creatures -= rejects
 		rejects
+	end
+
+	def cycle_creatures
+		cycle_live_creatures + cycle_dead_creatures
 	end
 end
