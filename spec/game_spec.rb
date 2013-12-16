@@ -254,4 +254,37 @@ describe Game do
 			expect(game.creatures).to include(live_a, live_b, live_c, live_d, live_e, live_f)
 		end
 	end
+
+	describe "#tick" do
+		before do
+			game.creatures.clear
+			game.creatures.push(live_a, live_b, live_c, live_d, live_e, live_f)
+		end
+
+		context "after 1 tick" do
+			it "has the correct number of creatures in the collection" do
+				game.tick
+				expect(game.creatures.length).to eq(5)
+			end
+
+			it "has live creatures in the collection at the correct locations" do
+				game.tick
+				expect(game.creature_locations(true)).to include([1, 1], [2, 2], [3, 0], [1, 2], [4, 1])
+			end
+		end
+
+		context "after 2 ticks" do
+			it "has the correct number of creatures in the collection" do
+				game.tick
+				game.tick
+				expect(game.creatures.length).to eq(4)
+			end
+
+			it "has live creatures in the collection at the correct locations" do
+				game.tick
+				game.tick
+				expect(game.creature_locations(true)).to include([1, 1], [1, 2], [2, 2], [3, 1])
+			end
+		end
+	end
 end

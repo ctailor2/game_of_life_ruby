@@ -26,6 +26,9 @@ class Game
 	def tick
 		increment_counter
 		build_neighborhood(vacant_lots)
+		set_neighbor_counts
+		zap_select_creatures
+		clean_up_creatures
 	end
 
 	def increment_counter
