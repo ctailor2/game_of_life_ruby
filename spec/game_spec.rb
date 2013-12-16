@@ -84,4 +84,42 @@ describe Game do
 			expect{ game.tick }.to change{ game.tick_count }.by(1)		
 		end
 	end
+
+	describe "#count_neighbors" do
+		let(:creature_a) { Creature.new(1, 1, true) }
+		let(:creature_b) { Creature.new(2, 1, true) }
+		let(:creature_c) { Creature.new(2, 2, true) }
+		let(:creature_d) { Creature.new(1, 0) }
+		let(:creature_e) { Creature.new(3, 3) }
+		let(:creature_f) { Creature.new(1, 2) }
+		let(:creature_g) { Creature.new(0, 0) }
+		before do
+			game.creatures.clear
+			game.creatures.push(creature_a, creature_b, creature_c, creature_d, creature_e, creature_f, creature_g)
+		end
+
+		context "for creature_b" do
+			it "returns the correct number of live neighbors" do
+				expect(game.count_neighbors(creature_b)).to eq(2)
+			end
+		end
+
+		context "for creature_d" do
+			it "returns the correct number of live neighbors" do
+				expect(game.count_neighbors(creature_d)).to eq(2)
+			end
+		end
+
+		context "for creature_f" do
+			it "returns the correct number of live neighbors" do
+				expect(game.count_neighbors(creature_f)).to eq(3)
+			end
+		end
+
+		context "for creature_g" do
+			it "returns the correct number of live neighbors" do
+				expect(game.count_neighbors(creature_g)).to eq(1)
+			end
+		end
+	end
 end

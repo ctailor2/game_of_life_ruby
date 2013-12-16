@@ -53,4 +53,9 @@ class Game
 	def creature_locations(alive)
 		creatures.select{ |creature| creature.alive == alive }.map{ |creature| creature.location }
 	end
+
+	def count_neighbors(creature)
+		neighbor_locations = creature.neighborhood & creature_locations(true)
+		neighbor_locations.length
+	end
 end
