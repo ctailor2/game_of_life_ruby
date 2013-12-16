@@ -58,4 +58,10 @@ class Game
 		neighbor_locations = creature.neighborhood & creature_locations(true)
 		neighbor_locations.length
 	end
+
+	def set_neighbor_counts
+		creatures.each do |creature|
+			creature.live_neighbors = count_neighbors(creature)
+		end
+	end
 end

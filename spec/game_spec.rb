@@ -117,4 +117,16 @@ describe Game do
 			end
 		end
 	end
+
+	describe "#set_neighbor_counts" do
+		before do
+			game.creatures.clear
+			game.creatures.push(creature_a, creature_b, creature_c, creature_d)
+		end
+
+		it "sets the live_neighbors attribute for all creatures" do
+			game.set_neighbor_counts
+			expect(game.creatures.all? { |creature| creature.live_neighbors == 2 }).to be_true
+		end
+	end
 end
