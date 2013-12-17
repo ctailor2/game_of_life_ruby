@@ -2,7 +2,6 @@ require_relative 'game'
 
 helpers do
 	def new_game(num_creatures)
-		session.clear
 		session[:game] = Game.new(params["num_creatures"].to_i)
 	end
 
@@ -17,20 +16,24 @@ helpers do
 	def creature_locations
 		current_game.creature_locations(true)
 	end
+
+	def reset
+		session.clear
+	end
 end
 
 get '/' do
+	reset
 	erb :index
 end
 
 post '/' do
+	reset
 	new_game(params["num_creatures"].to_i)
-	@creature_locations = current_game.creature_locations(true)
 	erb :index
 end
 
 post '/tick' do
 	current_game.tick
-	@creature_locations = current_game.creature_locations(true)
 	erb :index
 end

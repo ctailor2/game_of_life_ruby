@@ -22,7 +22,7 @@
 					<% 30.downto(-30) do |y| %>
 						<tr>
 							<% -30.upto(30) do |x| %>
-								<% if @creature_locations.include?([x, y]) %>
+								<% if creature_locations.include?([x, y]) %>
 									<td id="<%= [x, y] %>" class="alive"></td>
 								<% else %>
 									<td id="<%= [x, y] %>"></td>
