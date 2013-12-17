@@ -1,4 +1,4 @@
-# Require config/environment.rb
+# Require environment.rb
 require ::File.expand_path('../environment',  __FILE__)
 
 set :app_file, __FILE__
