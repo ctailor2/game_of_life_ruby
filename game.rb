@@ -14,14 +14,15 @@ class Game
 
 	def starting_locations(num_creatures)
 		locations = []
-		bound = starting_bound(num_creatures)
+		spread = starting_spread(num_creatures)
+		range = -spread / 2 .. spread / 2
 		until locations.uniq.length == num_creatures
-			locations << [rand(bound), rand(bound)]
+			locations << [rand(range), rand(range)]
 		end
 		locations.uniq
 	end
 
-	def starting_bound(num_creatures)
+	def starting_spread(num_creatures)
 		Math.sqrt(num_creatures * 5).floor.to_i
 	end
 

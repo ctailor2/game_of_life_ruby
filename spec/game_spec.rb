@@ -39,10 +39,10 @@ describe Game do
 		end
 	end
 
-	describe "#starting_bound" do
+	describe "#starting_spread" do
 		it "ensures creatures take up at least 20% of their starting area" do
 			num_creatures = game.creatures.length
-			expect(num_creatures.to_f / (game.starting_bound(5) ** 2)).to be >= 0.20
+			expect(num_creatures.to_f / (game.starting_spread(5) ** 2)).to be >= 0.20
 		end
 	end
 
