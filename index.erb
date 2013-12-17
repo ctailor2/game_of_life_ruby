@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/application.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Welcome to the Game of Life!</h1>
+
+			<form action="/" method="POST">
+				<input type="text" name="num_creatures" placeholder="# of Creatures">
+				<input type="submit" value="Start Game!">
+			</form>
+
+			<% if game_on? %>
+				<p><%= current_game.tick_count %></p>
+				<form action="/tick" method="POST">
+					<input type="submit" value="Tick!">
+				</form>
+
+				<table>
+					<% 30.downto(-30) do |y| %>
+						<tr>
+							<% -30.upto(30) do |x| %>
+								<% if @creature_locations.include?([x, y]) %>
+									<td id="<%= [x, y] %>" class="alive"></td>
+								<% else %>
+									<td id="<%= [x, y] %>"></td>
+								<% end %>
+							<% end %>
+						</tr>
+					<% end %>
+				</table>
+			<% end %>
+		</div>
+	</body>
+</html>

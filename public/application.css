@@ -1,0 +1,20 @@
+.container {
+  margin: 20px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+  text-align: center;
+}
+
+table {
+	margin-top: 20px;
+}
+
+td {
+	height: 7px;
+	width: 7px;
+}
+
+.alive {
+	background-color: black;
+}

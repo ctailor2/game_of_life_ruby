@@ -1,3 +1,5 @@
+require_relative 'creature'
+
 class Game
 	attr_accessor :tick_count, :creatures
 
